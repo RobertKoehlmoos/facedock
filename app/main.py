@@ -1,12 +1,13 @@
 from fastapi import File, FastAPI, UploadFile
-from photo_processing import get_embeddings
+from fastapi.responses import RedirectResponse
+from .photo_processing import get_embeddings
 
 app = FastAPI()
 
 
 @app.get("/")
 def read_root():
-    return {"msg": "Hello World"}
+    return RedirectResponse(url="/docs")
 
 
 @app.post("/photo")
