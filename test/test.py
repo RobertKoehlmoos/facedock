@@ -18,5 +18,5 @@ def test_get_embedding():
 
 def test_normal():
     response = client.get("/")
+    print(response.text)
     assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
