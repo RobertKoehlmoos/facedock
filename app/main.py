@@ -6,9 +6,9 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"msg": "Hello World"}
 
 
 @app.post("/photo")
 async def photo_embeddings(file: UploadFile = File(...)):  # the = File(...) needs to be there. I can't figure out why.
-    return {get_embeddings(file)}
+    return {"result": get_embeddings(file)}
