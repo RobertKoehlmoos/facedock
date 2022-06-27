@@ -17,7 +17,7 @@ async def photo_embeddings(photo: UploadFile = File(...)):  # the = File(...) ne
     # todo: choose locations that won't cause problems when multiple people make the same api call at once
     temp_photo_location = f"./{photo.filename}"
     async with aiofiles.open(temp_photo_location, "wb+") as temp_photo:
-        temp_photo.write(photo.file.read())
+        await temp_photo.write(photo.file.read())
     result = get_embeddings(temp_photo_location)
     os.remove(temp_photo_location)
     return {"result": result}
