@@ -1,6 +1,7 @@
 from fastapi import File, FastAPI, UploadFile
 from fastapi.responses import RedirectResponse
 from .photo_processing import get_embeddings
+import os
 
 app = FastAPI()
 
@@ -11,5 +12,10 @@ def read_root():
 
 
 @app.post("/photo")
-async def photo_embeddings(file: UploadFile = File(...)):  # the = File(...) needs to be there. I can't figure out why.
-    return {"result": get_embeddings(file)}
+async def photo_embeddings(photo: UploadFile = File(...)):  # the = File(...) needs to be there. I can't figure out why.
+    temp_photo_location = f"./{photo.filename}"
+    with open(temp_photo_location, "wb+") as temp_photo:
+        temp_photo.write(photo.file.read())
+    result = get_embeddings(temp_photo_location)
+    os.remove(temp_photo_location)
+    return {"result": result}

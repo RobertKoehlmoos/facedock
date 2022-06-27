@@ -11,7 +11,7 @@ def test_sanity():
 
 def test_get_embedding():
     with open('./test/test_people.png', 'rb') as f:
-        response = client.post("/photo", files={'file': f})
+        response = client.post("/photo", files={'photo': f})
     print(response.request.body[:200])
     assert len(response.text) > 0
 
