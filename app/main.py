@@ -4,9 +4,7 @@ from .photo_processing import get_embeddings
 import tempfile
 import aiofiles
 import os
-temp = tempfile.TemporaryFile()
-print(temp)
-print(temp.name)
+
 app = FastAPI()
 
 
