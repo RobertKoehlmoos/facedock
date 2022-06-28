@@ -1,4 +1,3 @@
-from typing import Any
 from deepface import DeepFace
 from retinaface import RetinaFace
 
