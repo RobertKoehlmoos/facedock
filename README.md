@@ -1,4 +1,4 @@
-# facedock - Facial Recognition as a Service![![Validation Tests](https://github.com/RobertKoehlmoos/facedock/actions/workflows/actions.yml/badge.svg)](https://github.com/RobertKoehlmoos/facedock/actions/workflows/actions.yml)  
+# facedock - Facial Recognition as a Service! [![Validation Tests](https://github.com/RobertKoehlmoos/facedock/actions/workflows/actions.yml/badge.svg)](https://github.com/RobertKoehlmoos/facedock/actions/workflows/actions.yml)  
 facedock is a web service that enables users to send in photos and receive back
 classifications and embeddings for the faces in those photos.
 ## Installation
