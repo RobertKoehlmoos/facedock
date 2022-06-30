@@ -67,7 +67,14 @@ attributes are 'age', 'gender', 'race', 'emotion', and 'embedding'.
 model - The model to generate the embedding. Valid models are 
 "VGG-Face", "Facenet", "OpenFace", "DeepFace", "Dlib", and "ArcFace".  
 return_faces: If the extracted faces should be returned in a zip. 
-Otherwise the zip file will be empty.
+Otherwise the zip file will be empty.  
+
+Example returned dictionary json output:
+```python
+{"age": 22, "gender": "Man", "race": {"asian": 0.6843085866421461, "indian": 4.302098602056503, "black": 0.2974690170958638,
+"white": 25.789090991020203, "middle eastern": 41.94537699222565, "latino hispanic": 26.98165476322174},
+ "dominant_race": "middle eastern", "embedding": [0.010312524624168873, 0.0006235652836039662, ...]}
+```
 ## Usage Examples
 Download the faces zip and save the classifications to a text file.
 ```python
@@ -99,5 +106,5 @@ with open('people.png', 'rb') as photo:
     response = requests.post('http://facedock.com/photo', files={'photo': photo},
                              data={'attributes': ['embedding'], 
                                    'model': 'ArcFace', 'return_faces': False})
-emebeddings = json.loads(response.header['results'])
+emebeddings = json.loads(response.headers['results'])
 ```
