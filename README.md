@@ -11,8 +11,9 @@ the command `docker build -t facedock .`
 This will create a docker image of facedock on your local computer. You
 can confirm this by running `docker images` which will include `facedock` if the
 build was successful.  NOTE: building the image can take a while due
-   installing many large computer vision libraries. On a computer with 8Gb of RAM
-   and 60Mb/s download speed, building took 444 seconds, or about 7 minutes.
+   installing many large computer vision libraries and copying in models.
+   On a computer with 8Gb of RAM
+   and 60Mb/s download speed, building took 572 seconds, or about 10 minutes.
 2. This image can then be run using the command `docker run -p 80:80 facedock`.
 Make sure your local routing policy and firewalls allows incoming connection. A
    port other than 80 can be specified by replacing the 80 following the colon in
