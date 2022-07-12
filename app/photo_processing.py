@@ -8,7 +8,6 @@ import io
 import os
 
 
-# TODO: Figure out how to get the various model h5 files local so that they don't need to be downloaded from a github
 def analyse_photo(photo_path: str, attributes: tuple[str] = ("age", "gender", "race"),
                   embedding_requested: bool = True, model: str = "VGG-Face",
                   include_faces: bool = True) -> tuple[list[dict], io.BytesIO]:
