@@ -24,13 +24,20 @@ def analyse_photo(photo_path: str, attributes: tuple[str] = ("age", "gender", "r
     """
     # code for working with multiple faces taken from https://github.com/serengil/deepface/issues/321
     faces = RetinaFace.extract_faces(photo_path)
-
     face_analysis = []
     for face in faces:
-        face_analysis.append(DeepFace.analyze(face, detector_backend='skip', actions=attributes))
+        face_analysis.append(DeepFace.analyze(face, detector_backend='skip', actions=attributes, prog_bar=False))
         del face_analysis[-1]['region']
         if embedding_requested:
             face_analysis[-1]['embedding'] = DeepFace.represent(face, detector_backend='skip', model_name=model)
+    if not faces:
+        # if no faces are detected assume the whole image is a face, this is a known issue when using pre-cut out faces from different models
+        face_analysis.append(DeepFace.analyze(photo_path, detector_backend='skip', actions=attributes, prog_bar=False,
+                                              enforce_detection=False))
+        # these three lines are repeated from above, should turn them into a function if the repeated section gets any longer
+        del face_analysis[-1]['region']
+        if embedding_requested:
+            face_analysis[-1]['embedding'] = DeepFace.represent(photo_path, detector_backend='skip', model_name=model)
     return face_analysis, convert_photo_ndarrays_to_zip(faces if include_faces else [])
 
 
@@ -62,6 +69,6 @@ def convert_photo_ndarrays_to_zip(photos_arrays: list[numpy.ndarray]) -> io.Byte
 
 if __name__ == "__main__":
     test_embeddings = analyse_photo("../test/test_people.png")
-    print("There are ", len(test_embeddings), " faces in the image")
-    for person, _ in test_embeddings:
+    print("There are ", len(test_embeddings[0]), " faces in the image")
+    for person in test_embeddings[0]:
         print(f"age:{person['age']}, gender:{person['gender']}, dominant race: {person['dominant_race']}")
