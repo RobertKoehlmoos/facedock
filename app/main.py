@@ -7,7 +7,9 @@ import os
 import json
 
 
-app = FastAPI()
+app = FastAPI(
+    title="Facedock"
+)
 
 
 @app.get("/")
@@ -15,7 +17,7 @@ async def read_root():
     return RedirectResponse(url="/docs")
 
 
-@app.post("/photo")
+@app.post("/photo", summary="Submit a photo and select attributes to be extracted from models, optionally returning cut out faces.")
 async def photo_embeddings(photo: UploadFile = File(...),
                            attributes: list[str] = Form(["age", "gender", "race", "embedding"]),  # mutable default
                            model: str = Form("VGG-Face"), return_faces: bool = Form(True)):
